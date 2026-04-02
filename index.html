@@ -1,139 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haziq Portfolio</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
 
-    header {
-      padding: 80px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-    }
+body {
+  background: #0a0a0a;
+  color: #fff;
+}
 
-    header h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+/* NAV */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(10,10,10,0.6);
+  backdrop-filter: blur(10px);
+}
 
-    header p {
-      color: #94a3b8;
-    }
+nav a {
+  color: #aaa;
+  margin-left: 20px;
+  text-decoration: none;
+  transition: 0.3s;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #38bdf8;
-      color: black;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    }
+nav a:hover {
+  color: white;
+}
 
-    section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+}
 
-    h2 {
-      color: #38bdf8;
-      margin-bottom: 20px;
-    }
+.hero h1 {
+  font-size: 60px;
+  line-height: 1.2;
+}
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      transition: 0.3s;
-    }
+.hero span {
+  color: #aaa;
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-      background: #273449;
-    }
+.hero p {
+  margin-top: 20px;
+  color: #777;
+  max-width: 500px;
+}
 
-    .skills span {
-      display: inline-block;
-      background: #334155;
-      padding: 6px 12px;
-      margin: 5px;
-      border-radius: 20px;
-      font-size: 14px;
-    }
+/* SECTION */
+section {
+  padding: 100px 10%;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-    }
+.title {
+  font-size: 32px;
+  margin-bottom: 40px;
+}
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 28px;
-      }
-    }
-  </style>
+/* PROJECT */
+.project {
+  margin-bottom: 60px;
+  cursor: pointer;
+}
+
+.project h3 {
+  font-size: 26px;
+}
+
+.project p {
+  color: #777;
+  margin-top: 10px;
+}
+
+.project:hover h3 {
+  text-decoration: underline;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* FOOTER */
+footer {
+  padding: 50px;
+  text-align: center;
+  color: #666;
+}
+
+/* MOBILE */
+@media(max-width: 768px){
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Hi, I'm Muhammad Nazmel Anaqi Bin Nazri</h1>
-    <p>Computer Science Student | Web Developer | Gamer</p>
-    <a class="btn" href="#projects">View My Work</a>
-  </header>
+<nav>
+  <div><b>Haziq</b></div>
+  <div>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-  <section>
-    <h2>About Me</h2>
-    <div class="card">
-      I am a passionate developer who enjoys building websites and exploring new technologies.
-      Currently focused on web development and system projects.
-    </div>
-  </section>
+<div class="hero">
+  <h1>
+    I build clean<br>
+    <span>web experiences</span>
+  </h1>
+  <p>
+    Computer Science student focused on web development, systems, and creative projects.
+  </p>
+</div>
 
-  <section id="projects">
-    <h2>Projects</h2>
+<section id="work">
+  <div class="title">Selected Work</div>
 
-    <div class="card">
-      <h3>C</h3>
-      <p></p>
-    </div>
+  <div class="project">
+    <h3>Complaint Management System</h3>
+    <p>PHP + MySQL based system for handling complaints efficiently.</p>
+  </div>
 
-  </section>
+  <div class="project">
+    <h3>Portfolio Website</h3>
+    <p>Personal site hosted using GitHub Pages with custom domain.</p>
+  </div>
+</section>
 
-  <section>
-    <h2>Skills</h2>
-    <div class="skills">
-      <span>HTML</span>
-      <span>CSS</span>
-      <span>JavaScript</span>
-      <span>PHP</span>
-      <span>MySQL</span>
-      <span>GitHub</span>
-    </div>
-  </section>
+<section id="about">
+  <div class="title">About</div>
+  <p style="color:#777; max-width:600px;">
+    I'm passionate about building simple and meaningful digital products.
+    Currently exploring full-stack development and UI design.
+  </p>
+</section>
 
-  <section>
-    <h2>Contact</h2>
-    <div class="card">
-      Email: anaqinazmel@gmail.com <br/>
-    </div>
-  </section>
+<section id="contact">
+  <div class="title">Contact</div>
+  <p style="color:#777;">
+    Email: your@email.com <br>
+    GitHub: github.com/yourusername
+  </p>
+</section>
 
-  <footer>
-    © 2026 Muhammad nazmel. Built with GitHub Pages.
-  </footer>
+<footer>
+  © 2026 Haziq
+</footer>
 
 </body>
 </html>
