@@ -1,19 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>TEST</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+    }
+
+    header h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: #94a3b8;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #38bdf8;
+      color: black;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #38bdf8;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #273449;
+    }
+
+    .skills span {
+      display: inline-block;
+      background: #334155;
+      padding: 6px 12px;
+      margin: 5px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>TEST</h1>
-    <p>TEST</p>
 
-    <h2>TEST</h2>
-    <ul>
-        <li>TEST</li>
-        <li>TEST</li>
-    </ul>
+  <header>
+    <h1>Hi, I'm Your Name 👋</h1>
+    <p>Computer Science Student | Web Developer | Gamer</p>
+    <a class="btn" href="#projects">View My Work</a>
+  </header>
 
-    <h2>TEST</h2>
-    <p>TEST</p>
+  <section>
+    <h2>About Me</h2>
+    <div class="card">
+      I am a passionate developer who enjoys building websites and exploring new technologies.
+      Currently focused on web development and system projects.
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="card">
+      <h3>Complaint Management System</h3>
+      <p>Web system built using PHP & MySQL for handling user complaints efficiently.</p>
+    </div>
+
+    <div class="card">
+      <h3>Portfolio Website</h3>
+      <p>Personal portfolio hosted using GitHub Pages with custom domain.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skills">
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>JavaScript</span>
+      <span>PHP</span>
+      <span>MySQL</span>
+      <span>GitHub</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <div class="card">
+      Email: yourname@email.com <br/>
+      GitHub: github.com/yourusername
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Your Name. Built with GitHub Pages.
+  </footer>
+
 </body>
 </html>
