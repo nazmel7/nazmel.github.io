@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Muhammad Nazmel | Portfolio</title>
 
-  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -58,8 +57,6 @@
 
     .hero h2 {
       font-size: 55px;
-      opacity: 0;
-      transform: translateY(30px);
       animation: fadeUp 1s ease forwards;
     }
 
@@ -71,11 +68,6 @@
       margin-top: 15px;
       color: #94a3b8;
       font-size: 16px;
-      height: 20px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s ease forwards;
-      animation-delay: 0.3s;
     }
 
     .btn {
@@ -87,10 +79,6 @@
       text-decoration: none;
       font-weight: 500;
       transition: 0.3s;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s ease forwards;
-      animation-delay: 0.6s;
     }
 
     .btn:hover {
@@ -101,52 +89,72 @@
     /* PROJECT SECTION */
     .projects {
       padding: 120px 60px;
+    }
+
+    .section-title {
       text-align: center;
+      font-size: 40px;
+      margin-bottom: 60px;
     }
 
-    .projects h2 {
-      font-size: 36px;
-      margin-bottom: 40px;
+    .project-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
     }
 
-    .project-card {
-      background: rgba(255,255,255,0.05);
-      padding: 25px;
+    .project-image {
+      flex: 1;
+      max-width: 500px;
       border-radius: 15px;
-      max-width: 600px;
-      margin: auto;
-      backdrop-filter: blur(10px);
-      transition: 0.3s;
+      padding: 10px;
+      background: linear-gradient(45deg, #ff00cc, #38bdf8);
+      box-shadow: 0 0 40px rgba(255, 0, 200, 0.4);
     }
 
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    .project-image img {
+      width: 100%;
+      border-radius: 10px;
     }
 
-    .project-card h3 {
+    .project-content {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .project-content h3 {
+      font-size: 32px;
       margin-bottom: 10px;
-      color: #38bdf8;
     }
 
-    .project-card p {
-      color: #cbd5f5;
+    .tech {
+      color: #38bdf8;
       font-size: 14px;
       margin-bottom: 15px;
     }
 
-    .project-card a {
+    .desc {
+      color: #cbd5f5;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .live-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1px solid #ff00cc;
+      color: #ff00cc;
       text-decoration: none;
-      color: black;
-      background: #38bdf8;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 13px;
+      border-radius: 6px;
       transition: 0.3s;
     }
 
-    .project-card a:hover {
-      background: #0ea5e9;
+    .live-btn:hover {
+      background: #ff00cc;
+      color: white;
     }
 
     /* blur bg */
@@ -155,7 +163,6 @@
       border-radius: 50%;
       filter: blur(100px);
       z-index: -1;
-      animation: float 10s infinite alternate;
     }
 
     .blur1 {
@@ -174,17 +181,6 @@
       right: 10%;
     }
 
-    .badge {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #facc15;
-      color: black;
-      padding: 10px 15px;
-      border-radius: 20px;
-      font-size: 13px;
-    }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -193,18 +189,21 @@
     }
 
     @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    @keyframes float {
-      from {
-        transform: translateY(0px);
-      }
-      to {
-        transform: translateY(-50px);
+    /* responsive */
+    @media (max-width: 768px) {
+      .project-row {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
@@ -215,57 +214,52 @@
   <div class="blur blur1"></div>
   <div class="blur blur2"></div>
 
-  <div class="badge">🚧 Work in Progress</div>
-
   <header>
     <h1>Nazmel</h1>
     <nav>
       <a href="#">Home</a>
       <a href="#projects">Projects</a>
-      <a href="#">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
     <h2>Hello, I'm <span>Muhammad Nazmel Anaqi</span></h2>
-    <p class="typing"></p>
+    <p class="typing">I build real-world systems & web applications.</p>
     <a href="#projects" class="btn">View My Work</a>
   </section>
 
-  <!-- PROJECT SECTION -->
+  <!-- PROJECT -->
   <section class="projects" id="projects">
-    <h2>My Work</h2>
+    <h2 class="section-title">Projects</h2>
 
-    <div class="project-card">
-      <h3>Integrity  Management System</h3>
-      <p>
-         Developed during my internship at Lembaga Lebuhraya Malaysia (LLM). 
-        Built using PHP and MySQL, the system enables users to submit and track 
-        integrity complaints with document upload and case management features. 
-      </p>
-      <a href="https://spai.llm.gov.my" target="_blank">Visit Website</a>
+    <div class="project-row">
+
+      <div class="project-image">
+        <img src="images/spai.png" alt="Spai LLM ">
+      </div>
+
+      <div class="project-content">
+        <h3>Integrity Complaint Management System</h3>
+
+        <p class="tech">
+          Built with: PHP · MySQL · JavaScript 
+        </p>
+
+        <p class="desc">
+          Developed during my internship at Lembaga Lebuhraya Malaysia (LLM). 
+        </p>
+
+        <a href="https://spai.llm.gov.my" target="_blank" class="live-btn">
+          ↗ Live
+        </a>
+      </div>
+
     </div>
-
   </section>
 
   <footer>
-    © 2026 Muhammad Nazmel Anaqi. All rights reserved.
+    © 2026 Muhammad Nazmel Anaqi
   </footer>
-
-  <script>
-    const text = "I am currently building this portfolio... stay tuned 👀";
-    let i = 0;
-
-    function typeWriter() {
-      if (i < text.length) {
-        document.querySelector(".typing").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 40);
-      }
-    }
-
-    typeWriter();
-  </script>
 
 </body>
 </html>
