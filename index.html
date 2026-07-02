@@ -1,215 +1,310 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work in Progress</title>
+<title>Site — In Progress</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #12141c;
-    --bg-soft: #191c26;
-    --ink: #ede9e2;
-    --muted: #7b8091;
-    --amber: #f2a93b;
-    --amber-dim: #8a6524;
+    --blue: #12335c;
+    --blue-deep: #0d2748;
+    --grid: rgba(178, 209, 240, 0.14);
+    --grid-major: rgba(178, 209, 240, 0.26);
+    --line: #d8e6f5;
+    --line-dim: rgba(216, 230, 245, 0.55);
+    --stamp: #c94f3f;
+    --paper: #eef4fb;
   }
 
   * { box-sizing: border-box; }
 
   html, body {
     margin: 0;
-    padding: 0;
-    height: 100%;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    min-height: 100%;
+    background: var(--blue);
+    color: var(--line);
+    font-family: 'Space Mono', monospace;
   }
 
   body {
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(var(--grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+    background-size: 16px 16px, 16px 16px, 96px 96px, 96px 96px;
+    background-position: -1px -1px;
+    padding: clamp(20px, 4vw, 48px);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow-x: hidden;
   }
 
-  /* Signature element: scrolling hazard tape */
-  .tape {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    background: repeating-linear-gradient(
-      45deg,
-      var(--amber),
-      var(--amber) 22px,
-      #1a1a1a 22px,
-      #1a1a1a 44px
-    );
-    padding: 10px 0;
+  /* corner registration ticks */
+  .tick {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    opacity: 0.6;
   }
+  .tick::before, .tick::after {
+    content: "";
+    position: absolute;
+    background: var(--line-dim);
+  }
+  .tick::before { width: 100%; height: 1px; top: 50%; }
+  .tick::after { height: 100%; width: 1px; left: 50%; }
+  .tick.tl { top: 16px; left: 16px; }
+  .tick.tr { top: 16px; right: 16px; }
+  .tick.bl { bottom: 16px; left: 16px; }
+  .tick.br { bottom: 16px; right: 16px; }
 
-  .tape .track {
+  header.doc-head {
     display: flex;
-    width: max-content;
-    animation: scroll 18s linear infinite;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--line-dim);
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--grid-major);
+    margin-bottom: clamp(24px, 5vh, 56px);
   }
-
-  .tape span {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(12px, 2.2vw, 16px);
-    letter-spacing: 0.12em;
-    color: #14151a;
-    background: var(--ink);
-    padding: 4px 18px;
-    margin: 0 6px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .tape .track { animation: none; }
-  }
+  header.doc-head span:last-child { text-align: right; }
 
   main {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8vh 6vw;
-    text-align: center;
+    position: relative;
   }
 
-  .content {
-    max-width: 620px;
+  .rig {
+    position: relative;
+    width: min(560px, 100%);
   }
 
-  .eyebrow {
-    font-size: 13px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin: 0 0 18px;
-    font-weight: 500;
-  }
-
-  h1 {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(2.4rem, 8vw, 4.6rem);
-    line-height: 1.02;
-    margin: 0 0 22px;
-    letter-spacing: -0.01em;
-  }
-
-  h1 em {
-    font-style: normal;
-    color: var(--amber);
-  }
-
-  p {
-    font-size: clamp(15px, 2.4vw, 18px);
-    color: var(--muted);
-    line-height: 1.6;
-    margin: 0 auto 34px;
-    max-width: 460px;
-  }
-
-  .progress-wrap {
-    max-width: 340px;
-    margin: 0 auto;
-  }
-
-  .progress-label {
+  /* dimension line above the mock */
+  .dim {
     display: flex;
-    justify-content: space-between;
-    font-size: 12px;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--line-dim);
     letter-spacing: 0.08em;
-    color: var(--muted);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .dim .bar { flex: 1; height: 1px; background: var(--line-dim); position: relative; }
+  .dim .bar::before, .dim .bar::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 7px;
+    background: var(--line-dim);
+  }
+  .dim .bar::before { left: 0; }
+  .dim .bar::after { right: 0; }
+
+  /* the wireframe mock of the site */
+  .mock {
+    border: 1.5px solid var(--line);
+    background: rgba(18, 51, 92, 0.35);
+    position: relative;
+  }
+
+  .mock .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line-dim);
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--line-dim); }
+  .rule { height: 6px; background: var(--line-dim); opacity: 0.5; border-radius: 1px; }
+  .rule.w1 { width: 46px; }
+  .rule.w2 { width: 20px; margin-left: auto; }
+  .rule.w3 { width: 20px; }
+
+  .hero-block {
+    margin: 16px 14px;
+    height: clamp(90px, 20vw, 130px);
+    border: 1.5px dashed var(--line-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: march 22s linear infinite;
+  }
+  .hero-block span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--line-dim);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0 14px 16px;
+  }
+  .card {
+    border: 1.5px dashed var(--line-dim);
+    height: 64px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 6px;
+    animation: march 22s linear infinite;
+  }
+  .card span {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    color: var(--line-dim);
     text-transform: uppercase;
   }
+  .card.done {
+    border-style: solid;
+    border-color: var(--line);
+    animation: none;
+  }
+  .card.done span { color: var(--line); }
 
-  .progress-track {
-    width: 100%;
-    height: 8px;
-    background: var(--bg-soft);
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid #262a38;
+  @keyframes march {
+    to { background-position: 40px 0; }
   }
 
-  .progress-fill {
-    height: 100%;
-    width: 62%;
-    background: linear-gradient(90deg, var(--amber-dim), var(--amber));
-    border-radius: 4px;
+  @media (prefers-reduced-motion: reduce) {
+    .hero-block, .card { animation: none; }
   }
 
-  footer {
+  /* stamp overlay */
+  .stamp {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-9deg);
+    border: 3px solid var(--stamp);
+    color: var(--stamp);
+    padding: 8px 18px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: clamp(15px, 4vw, 22px);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    mix-blend-mode: screen;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .stamp small {
+    display: block;
     text-align: center;
-    padding: 22px 6vw 28px;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    margin-top: 2px;
+    font-weight: 400;
   }
 
-  footer a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--amber-dim);
+  .note {
+    margin-top: 22px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--line-dim);
+    max-width: 46ch;
   }
+  .note a { color: var(--line); }
 
-  footer a:hover { border-color: var(--amber); }
-
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--amber);
-    outline-offset: 3px;
+  /* title block, bottom right like a real drawing sheet */
+  .title-block {
+    align-self: flex-end;
+    margin-top: clamp(24px, 6vh, 56px);
+    border: 1px solid var(--line-dim);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    width: min(320px, 100%);
   }
+  .title-block .row {
+    display: flex;
+    border-bottom: 1px solid var(--grid-major);
+  }
+  .title-block .row:last-child { border-bottom: none; }
+  .title-block .cell {
+    padding: 6px 10px;
+    flex: 1;
+    border-right: 1px solid var(--grid-major);
+  }
+  .title-block .cell:last-child { border-right: none; }
+  .title-block .label {
+    display: block;
+    color: var(--line-dim);
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .title-block .value { color: var(--line); }
 </style>
 </head>
 <body>
 
-  <div class="tape" aria-hidden="true">
-    <div class="track">
-      <span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span>
-      <span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span>
-    </div>
-  </div>
+  <div class="tick tl"></div>
+  <div class="tick tr"></div>
+  <div class="tick bl"></div>
+  <div class="tick br"></div>
+
+  <header class="doc-head">
+    <span>Sheet A—01 · Homepage</span>
+    <span>Scale — N.T.S.</span>
+  </header>
 
   <main>
-    <div class="content">
-      <p class="eyebrow">Status update</p>
-      <h1>Still <em>building</em><br>this page.</h1>
-      <p>We're putting the pieces together behind the scenes. Check back soon — it'll be worth the wait.</p>
+    <div class="rig">
+      <div class="dim"><div class="bar"></div>viewport — responsive<div class="bar"></div></div>
 
-      <div class="progress-wrap">
-        <div class="progress-label">
-          <span>Building</span>
-          <span>62%</span>
+      <div class="mock">
+        <div class="bar-row">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <div class="rule w1"></div>
+          <div class="rule w2"></div>
+          <div class="rule w3" style="margin-left:8px;"></div>
         </div>
-        <div class="progress-track">
-          <div class="progress-fill"></div>
+
+        <div class="hero-block"><span>hero — pending copy</span></div>
+
+        <div class="cards">
+          <div class="card done"><span>done</span></div>
+          <div class="card done"><span>done</span></div>
+          <div class="card"><span>pending</span></div>
+        </div>
+
+        <div class="stamp">
+          Work in Progress
+          <small>do not publish</small>
+        </div>
+      </div>
+
+      <p class="note">
+        This sheet is under active revision. Two of three sections are framed in; the rest is still on the drafting table. Get in touch if you need an update — <a href="mailto:hello@example.com">hello@example.com</a>.
+      </p>
+
+      <div class="title-block">
+        <div class="row">
+          <div class="cell"><span class="label">Project</span><span class="value">Site Rebuild</span></div>
+          <div class="cell"><span class="label">Status</span><span class="value">In Progress</span></div>
+        </div>
+        <div class="row">
+          <div class="cell"><span class="label">Rev</span><span class="value">1.0</span></div>
+          <div class="cell"><span class="label">Drawn by</span><span class="value">Nazmel</span></div>
         </div>
       </div>
     </div>
   </main>
-
-  <div class="tape" aria-hidden="true">
-    <div class="track">
-      <span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span>
-      <span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span><span>WORK IN PROGRESS</span>
-    </div>
-  </div>
-
-  <footer>
-
-  </footer>
 
 </body>
 </html>
