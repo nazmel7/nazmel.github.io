@@ -1,137 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scholarship Application Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-        }
-        .form-container {
-            max-width: 600px;
-            background: #fff;
-            padding: 30px;
-            margin: 0 auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        fieldset {
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        legend {
-            font-weight: bold;
-            color: #34495e;
-            padding: 0 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        textarea {
-            resize: vertical;
-            height: 100px;
-        }
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .submit-btn:hover {
-            background-color: #2980b9;
-        }
-    </style>
+<style>
+body{
+    font-family: Arial;
+    background:#f0f0f0;
+}
+
+.popup{
+    width:380px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 0 20px rgba(0,0,0,.3);
+    padding:20px;
+    text-align:center;
+    margin:100px auto;
+}
+
+button{
+    padding:12px 25px;
+    background:#00b894;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+small{
+    color:red;
+}
+</style>
 </head>
+
 <body>
 
-<div class="form-container">
-    <h2>TIZTICK Scholarship Application</h2>
-    
-    <form action="/submit-application" method="POST">
-        
-        <fieldset>
-            <legend>Personal Information</legend>
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-        </fieldset>
+<div class="popup">
+<h2>🎉 Congratulations!</h2>
 
-        <fieldset>
-            <legend>Academic History</legend>
-            <div class="form-group">
-                <label for="institution">Current Institution / School</label>
-                <input type="text" id="institution" name="institution" required>
-            </div>
-            <div class="form-group">
-                <label for="gpa">Current GPA (or equivalent)</label>
-                <input type="number" id="gpa" name="gpa" step="0.01" min="0.00" max="4.00" placeholder="0.00" required>
-            </div>
-            <div class="form-group">
-                <label for="major">Intended Major / Field of Study</label>
-                <select id="major" name="major" required>
-                    <option value="">-- Select an Option --</option>
-                    <option value="computer-science">Computer Science</option>
-                    <option value="engineering">Engineering</option>
-                    <option value="business">Business Administration</option>
-                    <option value="arts">Arts & Humanities</option>
-                    <option value="sciences">Biological & Physical Sciences</option>
-                </select>
-            </div>
-        </fieldset>
+<p><b>You have won a brand new iPhone!</b></p>
 
-        <fieldset>
-            <legend>Application Essay</legend>
-            <div class="form-group">
-                <label for="essay">Personal Statement (Max 500 words)</label>
-                <textarea id="essay" name="essay" placeholder="Describe your academic goals and why you deserve this scholarship..." required></textarea>
-            </div>
-        </fieldset>
+<p>Your device has been selected as today's lucky winner.</p>
 
-        <button type="submit" class="submit-btn">Submit Application</button>
-    </form>
+<p><small>Offer expires in 05:00 minutes.</small></p>
+
+<button onclick="alert('This was a phishing awareness demonstration.')">
+Claim Now
+</button>
+
 </div>
 
 </body>
