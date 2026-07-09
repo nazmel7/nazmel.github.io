@@ -2,46 +2,64 @@
 <html>
 <head>
 <style>
-body{
-    font-family: Arial;
-    background:#f0f0f0;
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
-.popup{
-    width:380px;
-    background:white;
-    border-radius:10px;
-    box-shadow:0 0 20px rgba(0,0,0,.3);
-    padding:20px;
-    text-align:center;
-    margin:100px auto;
+/* --- Fullscreen Mobile Style by Default --- */
+.popup {
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    padding: 40px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
-button{
-    padding:12px 25px;
-    background:#00b894;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    font-size:16px;
+/* --- Desktop Responsive Style --- */
+@media (min-width: 768px) {
+    .popup {
+        width: 380px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,.3);
+        margin: 100px auto;
+        display: block; /* Standard layout for desktop box */
+    }
 }
 
-small{
-    color:red;
+button {
+    padding: 12px 25px;
+    background: #00b894;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
 }
 
-/* --- Fullscreen Styles --- */
+small {
+    color: red;
+}
+
+/* --- Fullscreen Image Styles --- */
 .image-overlay {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: black; /* Dark background behind the image */
+    background: black; 
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -56,7 +74,6 @@ small{
     align-items: center;
 }
 
-/* Default styling optimized for mobile phones */
 .image-content img {
     width: 100%;
     height: 100%;
@@ -64,14 +81,13 @@ small{
     display: block;
 }
 
-/* --- Responsive fix for Desktop / PC --- */
 @media (min-width: 768px) {
     .image-content img {
         width: 100%;
         height: 100%;
         max-width: 1920px;
         max-height: 1080px;
-        object-fit: contain; /* Prevents awkward cropping on large screens */
+        object-fit: contain; 
     }
 }
 
