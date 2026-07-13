@@ -1,1383 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Cyber Security Operations Center</title>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#020303;
-    color:#00ff9d;
-    font-family:'Share Tech Mono', monospace;
-    overflow:hidden;
-}
-
-/* Matrix Canvas */
-#matrix{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    opacity:.18;
-    z-index:-2;
-}
-
-
-/* CRT Scanline */
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,.03),
-        rgba(255,255,255,.03) 1px,
-        transparent 2px,
-        transparent 4px
-    );
-    pointer-events:none;
-}
-
-
-/* Main Layout */
-
-.wrapper{
-
-    height:100vh;
-    display:grid;
-    grid-template-columns:280px 1fr 300px;
-    grid-template-rows:80px 1fr 40px;
-    gap:15px;
-    padding:15px;
-
-}
-
-
-/* Header */
-
-.header{
-
-    grid-column:1/4;
-
-    border:1px solid #00ff9d;
-
-    background:
-    rgba(0,255,157,.05);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:20px;
-
-    box-shadow:
-    0 0 20px rgba(0,255,157,.3);
-
-}
-
-
-.logo{
-
-    font-size:28px;
-    letter-spacing:5px;
-
-    animation:glitch 2s infinite;
-
-}
-
-
-.status{
-
-    color:#00ff9d;
-
-}
-
-
-.status span{
-
-    color:#fff;
-
-}
-
-
-
-/* Panels */
-
-.panel{
-
-    background:
-
-    rgba(0,0,0,.65);
-
-    border:
-
-    1px solid rgba(0,255,157,.5);
-
-
-    box-shadow:
-
-    inset 0 0 20px rgba(0,255,157,.08),
-    0 0 15px rgba(0,255,157,.15);
-
-
-    padding:20px;
-
-}
-
-
-/* Left Side */
-
-.sidebar h3,
-.right h3{
-
-    margin-bottom:15px;
-
-    color:white;
-
-}
-
-
-.menu{
-
-    list-style:none;
-
-}
-
-
-.menu li{
-
-    padding:12px;
-
-    margin-bottom:8px;
-
-    border-left:
-
-    3px solid #00ff9d;
-
-    background:
-
-    rgba(0,255,157,.05);
-
-    transition:.3s;
-
-}
-
-
-.menu li:hover{
-
-    background:
-
-    rgba(0,255,157,.2);
-
-    transform:translateX(10px);
-
-}
-
-
-
-/* Center */
-
-.main{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-}
-
-
-.console{
-
-    flex:1;
-
-    overflow:hidden;
-
-}
-
-
-.console-title{
-
-    color:white;
-
-    margin-bottom:10px;
-
-}
-
-
-.logs{
-
-    height:90%;
-
-    overflow:hidden;
-
-    font-size:14px;
-
-}
-
-
-.log{
-
-    margin:8px 0;
-
-}
-
-
-.green{
-
-    color:#00ff9d;
-
-}
-
-
-.yellow{
-
-    color:#ffe600;
-
-}
-
-
-.red{
-
-    color:#ff4040;
-
-}
-
-
-
-/* Right Panel */
-
-.metric{
-
-    margin:20px 0;
-
-}
-
-
-.metric label{
-
-    display:block;
-
-    color:white;
-
-    margin-bottom:5px;
-
-}
-
-
-
-.bar{
-
-    height:15px;
-
-    border:1px solid #00ff9d;
-
-}
-
-
-.fill{
-
-    height:100%;
-
-    width:70%;
-
-    background:#00ff9d;
-
-    box-shadow:
-
-    0 0 15px #00ff9d;
-
-}
-
-
-
-/* Footer */
-
-
-.footer{
-
-    grid-column:1/4;
-
-    border-top:1px solid #00ff9d;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:13px;
-
-    color:#777;
-
-}
-
-
-
-/* Glitch Animation */
-
-
-@keyframes glitch{
-
-
-0%{
-
-text-shadow:
-2px 0 red,
--2px 0 blue;
-
-}
-
-
-20%{
-
-text-shadow:
--2px 0 red,
-2px 0 blue;
-
-}
-
-
-40%{
-
-text-shadow:none;
-
-}
-
-
-100%{
-
-text-shadow:
-2px 0 red,
--2px 0 blue;
-
-}
-
-
-}
-
-
-
-/* Responsive */
-
-@media(max-width:1000px){
-
-.wrapper{
-
-grid-template-columns:1fr;
-
-overflow:auto;
-
-}
-
-
-.header,
-.footer{
-
-grid-column:1;
-
-}
-
-}
-
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<canvas id="matrix"></canvas>
-
-
-
-<div class="wrapper">
-
-
-<!-- HEADER -->
-
-<div class="header">
-
-
-<div class="logo">
-
-MANA-P // CYBER OPS
-
-</div>
-
-
-<div class="status">
-
-SYSTEM STATUS:
-<span>SECURE SIMULATION</span>
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- LEFT -->
-
-
-<div class="panel sidebar">
-
-
-<h3>
-MODULES
-</h3>
-
-
-<ul class="menu">
-
-<li>Network Monitor</li>
-
-<li>Threat Analysis</li>
-
-<li>System Scan</li>
-
-<li>Digital Forensics</li>
-
-<li>Security Logs</li>
-
-</ul>
-
-
-</div>
-
-
-
-
-
-<!-- CENTER -->
-
-
-<div class="main">
-
-
-<div class="panel console">
-
-
-<div class="console-title">
-
-> LIVE SECURITY TERMINAL
-
-</div>
-
-
-<div class="logs" id="logs">
-
-
-<div class="log green">
-
-[BOOT] Cyber operation console initialized...
-
-</div>
-
-
-<div class="log">
-
-[INFO] Loading security modules...
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<!-- RIGHT -->
-
-
-<div class="panel right">
-
-
-<h3>
-
-SYSTEM MONITOR
-
-</h3>
-
-
-
-<div class="metric">
-
-<label>
-CPU LOAD
-</label>
-
-<div class="bar">
-
-<div class="fill" id="cpu"></div>
-
-</div>
-
-</div>
-
-
-
-<div class="metric">
-
-<label>
-MEMORY
-</label>
-
-<div class="bar">
-
-<div class="fill" id="ram"></div>
-
-</div>
-
-</div>
-
-
-
-<div class="metric">
-
-<label>
-NETWORK
-</label>
-
-<div class="bar">
-
-<div class="fill" id="net"></div>
-
-</div>
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<div class="footer">
-
-AUTHORIZED CYBERSECURITY DEMONSTRATION // OFFLINE SIMULATION
-
-</div>
-
-
-</div>
-
-
-
-<script>
-
-// ===============================
-// MATRIX DIGITAL RAIN
-// ===============================
-
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-
-const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&@";
-const fontSize = 15;
-
-let columns = canvas.width / fontSize;
-
-let drops = [];
-
-for(let i=0;i<columns;i++){
-    drops[i] = 1;
-}
-
-
-function matrix(){
-
-    ctx.fillStyle="rgba(0,0,0,0.08)";
-    ctx.fillRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    ctx.fillStyle="#00ff9d";
-    ctx.font = fontSize+"px monospace";
-
-
-    for(let i=0;i<drops.length;i++){
-
-        let text =
-        chars[
-            Math.floor(
-                Math.random()*chars.length
-            )
-        ];
-
-
-        ctx.fillText(
-            text,
-            i*fontSize,
-            drops[i]*fontSize
-        );
-
-
-        if(
-            drops[i]*fontSize >
-            canvas.height &&
-            Math.random()>0.975
-        ){
-
-            drops[i]=0;
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM COMPROMISED</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
         }
 
-
-        drops[i]++;
-
-    }
-
-}
-
-
-setInterval(matrix,40);
-
-
-
-window.addEventListener(
-"resize",
-()=>{
-
-canvas.width =
-window.innerWidth;
-
-canvas.height =
-window.innerHeight;
-
-columns =
-canvas.width/fontSize;
-
-
-drops=[];
-
-for(let i=0;i<columns;i++)
-drops[i]=1;
-
-});
-
-
-
-
-
-// ===============================
-// LIVE SECURITY LOG GENERATOR
-// ===============================
-
-
-const logs =
-document.getElementById("logs");
-
-
-const messages=[
-
-"Scanning network interfaces...",
-"Checking firewall integrity...",
-"Analyzing encrypted packets...",
-"Verifying system permissions...",
-"Running security diagnostics...",
-"Updating threat database...",
-"Monitoring active connections...",
-"Reviewing access permissions...",
-"Generating security report...",
-"System health check completed..."
-
-];
-
-
-function addLog(){
-
-
-let div=document.createElement("div");
-
-
-div.className="log";
-
-
-let time =
-new Date()
-.toLocaleTimeString();
-
-
-
-let message =
-messages[
-Math.floor(
-Math.random()*messages.length
-)
-];
-
-
-
-let color =
-Math.random();
-
-
-
-if(color>0.85){
-
-div.classList.add("red");
-
-}
-else if(color>0.5){
-
-div.classList.add("yellow");
-
-}
-else{
-
-div.classList.add("green");
-
-}
-
-
-
-div.innerHTML =
-`[${time}] ${message}`;
-
-
-
-logs.appendChild(div);
-
-
-
-if(logs.children.length>15){
-
-logs.removeChild(
-logs.firstChild
-);
-
-}
-
-
-
-}
-
-
-
-setInterval(addLog,1200);
-
-
-
-
-
-// ===============================
-// SYSTEM METRICS SIMULATION
-// ===============================
-
-
-const cpu =
-document.getElementById("cpu");
-
-const ram =
-document.getElementById("ram");
-
-const net =
-document.getElementById("net");
-
-
-
-function updateMetrics(){
-
-
-let cpuValue =
-Math.floor(
-Math.random()*40+40
-);
-
-
-let ramValue =
-Math.floor(
-Math.random()*35+45
-);
-
-
-let netValue =
-Math.floor(
-Math.random()*50+30
-);
-
-
-
-cpu.style.width =
-cpuValue+"%";
-
-
-ram.style.width =
-ramValue+"%";
-
-
-net.style.width =
-netValue+"%";
-
-
-
-}
-
-
-
-setInterval(
-updateMetrics,
-1500
-);
-
-
-
-
-
-// ===============================
-// RANDOM TERMINAL BOOT SEQUENCE
-// ===============================
-
-
-const boot=[
-"Initializing secure environment...",
-"Loading encryption module...",
-"Starting monitoring services...",
-"Connecting analysis engine...",
-"Preparing dashboard interface...",
-"All simulation systems online."
-];
-
-
-
-let index=0;
-
-
-function bootSequence(){
-
-
-if(index>=boot.length)
-return;
-
-
-
-let div =
-document.createElement("div");
-
-
-div.className="log green";
-
-
-div.innerHTML =
-"> "+boot[index];
-
-
-
-logs.appendChild(div);
-
-
-index++;
-
-
-setTimeout(
-bootSequence,
-800
-);
-
-
-}
-
-
-
-bootSequence();
-
-
-// ===============================
-// INTERACTIVE TERMINAL SYSTEM
-// ===============================
-
-
-const terminal = document.createElement("div");
-
-terminal.style.marginTop="15px";
-terminal.style.padding="15px";
-terminal.style.border="1px solid rgba(0,255,157,.5)";
-terminal.style.background="rgba(0,0,0,.5)";
-terminal.style.color="#00ff9d";
-
-
-terminal.innerHTML = `
-<div style="color:white;margin-bottom:10px">
-> COMMAND TERMINAL
-</div>
-
-<div id="output">
-Type <b>help</b> to view commands.
-</div>
-
-<div style="margin-top:10px">
-<span>></span>
-<input id="command"
-style="
-background:none;
-border:none;
-outline:none;
-color:#00ff9d;
-font-family:inherit;
-width:80%;
-">
-</div>
-`;
-
-
-
-document.querySelector(".console")
-.appendChild(terminal);
-
-
-
-const command =
-document.getElementById("command");
-
-
-const output =
-document.getElementById("output");
-
-
-
-command.focus();
-
-
-
-let history=[];
-
-
-
-command.addEventListener(
-"keydown",
-function(e){
-
-
-if(e.key==="Enter"){
-
-
-let cmd =
-command.value
-.toLowerCase()
-.trim();
-
-
-
-history.push(cmd);
-
-
-
-runCommand(cmd);
-
-
-
-command.value="";
-
-
-}
-
-
-});
-
-
-
-
-
-function print(text){
-
-
-let line =
-document.createElement("div");
-
-
-line.innerHTML =
-"> "+text;
-
-
-output.appendChild(line);
-
-
-output.scrollTop =
-output.scrollHeight;
-
-
-}
-
-
-
-
-function runCommand(cmd){
-
-
-
-switch(cmd){
-
-
-
-case "help":
-
-print(
-`
-Available commands:
-<br>
-- status : system information
-<br>
-- scan : run security scan
-<br>
-- clear : clear terminal
-<br>
-- about : project information
-<br>
-- time : current system time
-`
-);
-
-break;
-
-
-
-case "status":
-
-print(
-`
-SYSTEM STATUS: ONLINE
-<br>
-MODE: SIMULATION
-<br>
-NETWORK: MONITORED
-<br>
-SECURITY: ACTIVE
-`
-);
-
-break;
-
-
-
-case "scan":
-
-scanAnimation();
-
-break;
-
-
-
-case "clear":
-
-output.innerHTML="";
-
-break;
-
-
-
-case "about":
-
-print(
-`
-MANA-P CYBER OPS
-<br>
-Cybersecurity interface demonstration.
-<br>
-Built with HTML / CSS / JavaScript.
-`
-);
-
-break;
-
-
-
-case "time":
-
-print(
-new Date()
-.toString()
-);
-
-break;
-
-
-
-default:
-
-print(
-"Unknown command. Type help."
-);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-// ===============================
-// SECURITY SCAN ANIMATION
-// ===============================
-
-
-function scanAnimation(){
-
-
-let steps=[
-
-"Initializing scanner...",
-"Checking services...",
-"Analyzing permissions...",
-"Reviewing connections...",
-"Testing integrity...",
-"Scan completed."
-
-];
-
-
-let i=0;
-
-
-
-let interval =
-setInterval(()=>{
-
-
-print(
-steps[i]
-);
-
-
-
-i++;
-
-
-
-if(i>=steps.length){
-
-clearInterval(interval);
-
-print(
-"RESULT: NO ISSUES DETECTED"
-);
-
-}
-
-
-},800);
-
-
-
-}
-
-
-
-
-
-
-
-// ===============================
-// TYPING EFFECT FOR LOGO
-// ===============================
-
-
-const logo =
-document.querySelector(".logo");
-
-
-const original =
-logo.innerHTML;
-
-
-
-logo.innerHTML="";
-
-
-
-let pos=0;
-
-
-
-function typeLogo(){
-
-
-if(pos <
-original.length){
-
-
-logo.innerHTML +=
-original[pos];
-
-
-pos++;
-
-
-setTimeout(
-typeLogo,
-80
-);
-
-
-}
-
-
-
-}
-
-
-
-typeLogo();
-
-
-
-
-
-
-
-// ===============================
-// FLOATING SECURITY ALERTS
-// ===============================
-
-
-function notification(text){
-
-
-let box =
-document.createElement("div");
-
-
-box.innerHTML=text;
-
-
-box.style.position="fixed";
-
-box.style.right="30px";
-
-box.style.top="100px";
-
-box.style.padding="15px";
-
-box.style.background=
-"rgba(0,255,157,.1)";
-
-
-box.style.border=
-"1px solid #00ff9d";
-
-
-box.style.color="#00ff9d";
-
-
-box.style.boxShadow=
-"0 0 20px #00ff9d";
-
-
-document.body.appendChild(box);
-
-
-
-setTimeout(()=>{
-
-box.remove();
-
-},3000);
-
-
-
-}
-
-
-
-
-setInterval(()=>{
-
-
-let alerts=[
-
-"Security monitoring active",
-"Network analysis running",
-"Simulation event detected",
-"System diagnostics complete"
-
-];
-
-
-notification(
-alerts[
-Math.floor(
-Math.random()*alerts.length
-)
-]
-);
-
-
-
-},7000);
-
-
-
-
-
-
-
-// ===============================
-// KEYBOARD SHORTCUT
-// ===============================
-
-
-document.addEventListener(
-"keydown",
-e=>{
-
-
-if(e.key==="F1"){
-
-notification(
-"HELP MENU: type help in terminal"
-);
-
-}
-
-
-});
-
-</script>
-
-
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            color: #0f0;
+        }
+
+        /* Matrix rain canvas */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.15;
+        }
+
+        /* Main overlay container */
+        .terminal-container {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.9) 80%);
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Glitch Effect Box */
+        .glitch-wrapper {
+            padding: 20px;
+            border: 2px solid #ff0055;
+            box-shadow: 0 0 20px #ff0055, inset 0 0 20px #ff0055;
+            background: rgba(15, 0, 5, 0.8);
+            max-width: 700px;
+            width: 100%;
+            border-radius: 5px;
+            animation: flicker 0.15s infinite;
+        }
+
+        .skull-art {
+            font-size: 10px;
+            white-space: pre;
+            line-height: 10px;
+            color: #ff0055;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px #ff0055;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            color: #888;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .status-box {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #0f0;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .status-line {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .status-line span.success { color: #0f0; }
+        .status-line span.danger { color: #ff0055; font-weight: bold; }
+
+        .warning-text {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px #ffcc00;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Animations */
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            50% { opacity: 1; }
+            100% { opacity: 0.99; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        /* Scanline effect */
+        .terminal-container::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="terminal-container">
+        <div class="glitch-wrapper">
+            <div class="skull-art">
+     .---.
+    /     \
+    | () () |
+     \  ^  /
+      |||||
+      |||||
+            </div>
+
+            <h1>SYSTEM COMPROMISED</h1>
+            <p>Your security layers have been bypassed. Database extraction complete.</p>
+
+            <div class="status-box">
+                <div class="status-line">&gt; Bypassing firewall... <span class="success">[SUCCESS]</span></div>
+                <div class="status-line">&gt; Injecting payload... <span class="success">[DONE]</span></div>
+                <div class="status-line">&gt; Root privileges... <span class="success">[GRANTED]</span></div>
+                <div class="status-line">&gt; Encrypting system files... <span class="danger">[100%]</span></div>
+            </div>
+
+            <div class="warning-text">
+                OWNED BY 0xManaP
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Background Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+~`|}{[]:;?><,./-=";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+
+        for(let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 30);
+    </script>
 </body>
-
 </html>
