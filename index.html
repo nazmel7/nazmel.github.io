@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack3d By Benjamin</title>
+    <title>Hack3d By 0xManaP</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         * {
@@ -27,7 +27,7 @@
             padding: 20px;
         }
 
-        /* Redesigned Background Canvas */
+        /* Redesigned Background Canvas - Crimson Storm */
         canvas {
             position: absolute;
             top: 0;
@@ -54,44 +54,28 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
         }
 
+        /* Custom Centered Logo Styling with Ambient Glow */
         .logo-container {
             margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .hacker-logo {
-            width: 170px;
-            height: 170px;
-            border-radius: 50%;
-            border: 2px solid #3a3a3a;
-            background: #000000;
+            width: auto;
+            max-width: 320px; /* Perfectly scales your dynamic logo */
+            height: auto;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            filter: drop-shadow(0 0 25px rgba(255, 0, 50, 0.5)); /* Intense red aura */
         }
 
-        .emblem-placeholder {
-            color: #8a8a8a;
-            font-size: 10px;
-            font-family: 'Share Tech Mono', monospace;
-            border: 1px dashed #333;
-            padding: 20px;
-            border-radius: 50%;
-            width: 140px;
-            height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            line-height: 1.3;
-        }
-        
-        .emblem-placeholder span {
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 14px;
-            letter-spacing: 2px;
-            margin-top: 8px;
+        .hacker-logo img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
 
         .main-subtitle {
@@ -103,8 +87,8 @@
         }
 
         .main-subtitle span {
-            color: #008000; /* Darker green matching the reference image */
-            text-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
+            color: #ff0000; /* Shifted to clean red accent */
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
         }
 
         .agency-title {
@@ -118,14 +102,14 @@
 
         .dots-separator {
             color: #ff0000;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             font-size: 14px;
             margin-bottom: 25px;
         }
 
         .manifesto {
             font-family: 'Share Tech Mono', monospace;
-            color: #00ffff; /* Cyber cyan text color */
+            color: #ff4d4d; /* High visibility red/tint text */
             font-size: 1.25rem;
             line-height: 1.8;
             letter-spacing: 1px;
@@ -141,22 +125,18 @@
     <canvas id="backgroundCanvas"></canvas>
 
     <div class="content-wrapper">
-        <h1 class="top-header">Hack3d By Benjamin</h1>
+        <h1 class="top-header">Hack3d By 0xManaP</h1>
 
         <div class="logo-container">
             <div class="hacker-logo">
-                <div class="emblem-placeholder">
-                    🦅 <br>
-                    National Hackers Agency
-                    <span>N5A</span>
-                </div>
+                <img src="https://cdn.discordapp.com/attachments/984426192566366218/1526175979532193912/image-Photoroom.png?ex=6a5611a4&is=6a54c024&hm=dba7627af122e3ee246b88a1ddbc40dc6660399520cbd09aeabddca0f37b6415&" alt="ZeroDay Syndicate Logo">
             </div>
         </div>
 
         <h2 class="main-subtitle">Your System <span>Hacked By</span></h2>
-        <h1 class="agency-title">National Hackers Agency</h1>
+        <h1 class="agency-title">ZeroDay Syndicate</h1>
         
-        <div class="dots-separator">•••••••••• ••••••••••</div>
+        <div class="dots-separator">☠️•••••••••• ••••••••••☠️</div>
 
         <div class="manifesto">
             <p>Dear Admin Your Protection Is Hacked . . .</p>
@@ -174,37 +154,58 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Configuration to accurately mimic the reference image lines
-        const lineCount = 85; 
+        // Configurations for the crimson rain trails
+        const lineCount = 90; 
         const lines = [];
 
         for (let i = 0; i < lineCount; i++) {
             lines.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height - canvas.height,
-                length: Math.random() * 120 + 60, // Sharper, longer line segments
-                speed: Math.random() * 4 + 2,     // Quick falling pace
+                length: Math.random() * 130 + 70, 
+                speed: Math.random() * 4 + 2,     
                 opacity: Math.random() * 0.4 + 0.15
             });
         }
 
         function drawBackground() {
-            // Keep the baseline pitch black
             ctx.fillStyle = '#000000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw the neon digital light lines
+            // Draw the pure red digital rain
             for (let i = 0; i < lineCount; i++) {
                 let l = lines[i];
 
-                // Create a fade trail for the neon digital lines
                 let lineGrad = ctx.createLinearGradient(l.x, l.y, l.x, l.y + l.length);
-                lineGrad.addColorStop(0, 'rgba(0, 110, 255, 0)'); // Fades out up top
-                lineGrad.addColorStop(0.7, `rgba(100, 180, 255, ${l.opacity})`); // Soft icy blue center
-                lineGrad.addColorStop(1, `rgba(0, 150, 255, ${l.opacity * 1.5})`); // Strong sharp blue tip
+                lineGrad.addColorStop(0, 'rgba(255, 0, 0, 0)'); 
+                lineGrad.addColorStop(0.7, `rgba(255, 50, 50, ${l.opacity})`); 
+                lineGrad.addColorStop(1, `rgba(200, 0, 0, ${l.opacity * 1.6})`); 
 
                 ctx.beginPath();
                 ctx.strokeStyle = lineGrad;
-                ctx.lineWidth = 1.2; // Keep them thin and elegant
+                ctx.lineWidth = 1.3; 
                 ctx.moveTo(l.x, l.y);
-                ctx.lineTo(l.x, l.y + l.
+                ctx.lineTo(l.x, l.y + l.length);
+                ctx.stroke();
+
+                l.y += l.speed;
+
+                if (l.y > canvas.height) {
+                    l.y = -l.length;
+                    l.x = Math.random() * canvas.width;
+                    l.speed = Math.random() * 4 + 2;
+                }
+            }
+
+            requestAnimationFrame(drawBackground);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        drawBackground();
+    </script>
+</body>
+</html>
