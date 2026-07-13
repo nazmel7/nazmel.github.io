@@ -3,106 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM COMPROMISED</title>
+    <title>CRITICAL SYSTEM CORRUPTION DETECTED</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: #000;
-            color: #00ff00;
+            background-color: #050000;
+            color: #ff3333;
             font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            text-shadow: 0 0 5px #00ff00;
+            perspective: 1000px;
         }
 
-        /* Glitch Effect for the Main Header */
-        .glitch {
-            font-size: 3rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            position: relative;
-            animation: glitch 1s linear infinite;
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
-        }
-
-        .container {
-            text-align: center;
-            max-width: 600px;
-            padding: 20px;
-            border: 1px solid #00ff00;
-            background: rgba(0, 20, 0, 0.8);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-        }
-
-        .alias {
-            color: #fff;
-            font-size: 1.5rem;
-            margin: 20px 0;
-            letter-spacing: 2px;
-        }
-
-        .console {
-            text-align: left;
-            background: #050505;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px dashed #00ff00;
-            font-size: 0.9rem;
-            margin-top: 20px;
-        }
-
-        .ln {
-            color: #888;
-            margin-right: 10px;
-        }
-
-        /* Matrix rain-like overlay effect */
-        .overlay {
+        /* Ambient scanline and twitching red overlay */
+        .screen-effects {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 0, 0, 0) 50%, rgba(30, 0, 0, 0.4) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
             pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
+        /* Extreme Glitch Container */
+        .wrapper {
+            text-align: center;
+            padding: 40px;
+            border: 3px double #ff3333;
+            background: rgba(15, 0, 0, 0.95);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.3);
+            max-width: 750px;
+            width: 90%;
+            z-index: 5;
+            transform: rotateX(5deg);
+            animation: shudder 2s infinite alternate;
+        }
+
+        @keyframes shudder {
+            0% { transform: rotateX(5deg) rotateY(0deg); }
+            50% { transform: rotateX(4deg) rotateY(1deg) scale(0.99); }
+            100% { transform: rotateX(6deg) rotateY(-1deg) scale(1.01); }
+        }
+
+        .alert-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff;
+            animation: glitch-text 0.6s infinite;
+            letter-spacing: 4px;
+        }
+
+        @keyframes glitch-text {
+            0% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
+            19% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
+            20% { text-shadow: -4px 2px 0 #ff0000, 4px -2px 0 #00ffff; transform: translate(-4px, 2px); }
+            22% { text-shadow: 4px -2px 0 #ff0000, -4px 2px 0 #00ffff; transform: translate(4px, -2px); }
+            23% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
+            100% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
+        }
+
+        .status-box {
+            margin: 25px 0;
+            background: #000;
+            border: 1px solid #ff3333;
+            padding: 15px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        /* Panic Countdown Timer */
+        .countdown-container {
+            font-size: 1rem;
+            color: #888;
+            margin: 20px 0;
+        }
+        
+        #timer {
+            font-size: 2.5rem;
+            color: #ffffff;
+            font-weight: bold;
+            display: block;
+            margin-top: 5px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .footer-msg {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 30px;
+            letter-spacing: 5px;
+            animation: pulse 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        /* Decorative Background Matrix Canvas */
+        canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            opacity: 0.15;
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div>
+    <div class="screen-effects"></div>
+    <canvas id="chaosCanvas"></canvas>
 
-    <div class="container">
-        <div class="glitch">SYSTEM HACKED</div>
+    <div class="wrapper">
+        <div class="alert-title">FATAL ERROR</div>
         
-        <div class="alias">BY: <span style="color: #ff003c; text-shadow: 0 0 5px #ff003c;">ManaP_404</span></div>
-        
-        <p>Your security is a myth. Your data belongs to us.</p>
-        
-        <div class="console">
-            <div><span class="ln">[>]</span> Initializing exploit... SUCCESS</div>
-            <div><span class="ln">[>]</span> Bypassing firewall... DONE</div>
-            <div><span class="ln">[>]</span> Injecting rootkit... ACTIVE</div>
-            <div><span class="ln">[>]</span> Downloading database... 100%</div>
-            <div style="color: #ff003c;"><span class="ln">[!]</span> SYSTEM OWNED.</div>
+        <div class="status-box">
+            <span style="color: #fff;">[ CORE COMPROMISED ]</span><br><br>
+            All server files have been encrypted using AES-256.<br>
+            Decryption key authorization: <span style="color: #fff; animation: flicker 0.5s infinite;">FAILED</span>
         </div>
-        
-        <p style="font-size: 0.8rem; margin-top: 20px; color: #888;">We are watching you.</p>
+
+        <p style="color: #ff6666;">Do not restart or shut down the host machine. Doing so will result in immediate and permanent hardware failure.</p>
+
+        <div class="countdown-container">
+            TIME REMAINING UNTIL COMPLETE WIPE:
+            <span id="timer">00:05:00</span>
+        </div>
+
+        <div class="footer-msg">LEAVE NOW. THERE IS NOTHING LEFT TO SAVE.</div>
     </div>
 
+    <script>
+        // Fake Panic Countdown Script
+        let totalSeconds = 300; // 5 minutes
+        const timerElement = document.getElementById('timer');
+
+        const countdown = setInterval(() => {
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = totalSeconds % 60;
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            timerElement.textContent = `00:${minutes}:${seconds}`;
+
+            if (totalSeconds <= 0) {
+                // Loops back instead of actually breaking anything
+                totalSeconds = 300; 
+            } else {
+                totalSeconds--;
+            }
+        }, 1000);
+
+        // Background visual chaos generator
+        const canvas = document.getElementById('chaosCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function drawChaos() {
+            ctx.fillStyle = 'rgba(5, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#ff0000';
+            ctx.font = '14px monospace';
+            
+            for(let i = 0; i < 20; i++) {
+                let text = Math.random().toString(16).substring(2, 10).toUpperCase();
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                ctx.fillText(text, x, y);
+            }
+            requestAnimationFrame(drawChaos);
+        }
+        drawChaos();
+    </script>
 </body>
 </html>
