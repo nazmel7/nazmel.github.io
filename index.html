@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRITICAL SYSTEM CORRUPTION DETECTED</title>
+    <title>PROTOCOL OVERRIDE: ACTIVE</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,195 +12,249 @@
         }
 
         body {
-            background-color: #050000;
-            color: #ff3333;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #020208;
+            color: #00d2ff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
         }
 
-        /* Ambient scanline and twitching red overlay */
-        .screen-effects {
+        /* Sci-Fi Blueprint Grid Background */
+        .grid-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 0, 0, 0) 50%, rgba(30, 0, 0, 0.4) 50%);
-            background-size: 100% 4px;
-            z-index: 10;
-            pointer-events: none;
-            animation: flicker 0.15s infinite;
-        }
-
-        @keyframes flicker {
-            0% { opacity: 0.95; }
-            50% { opacity: 1; }
-            100% { opacity: 0.9; }
-        }
-
-        /* Extreme Glitch Container */
-        .wrapper {
-            text-align: center;
-            padding: 40px;
-            border: 3px double #ff3333;
-            background: rgba(15, 0, 0, 0.95);
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.3);
-            max-width: 750px;
-            width: 90%;
-            z-index: 5;
-            transform: rotateX(5deg);
-            animation: shudder 2s infinite alternate;
-        }
-
-        @keyframes shudder {
-            0% { transform: rotateX(5deg) rotateY(0deg); }
-            50% { transform: rotateX(4deg) rotateY(1deg) scale(0.99); }
-            100% { transform: rotateX(6deg) rotateY(-1deg) scale(1.01); }
-        }
-
-        .alert-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff;
-            animation: glitch-text 0.6s infinite;
-            letter-spacing: 4px;
-        }
-
-        @keyframes glitch-text {
-            0% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
-            19% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
-            20% { text-shadow: -4px 2px 0 #ff0000, 4px -2px 0 #00ffff; transform: translate(-4px, 2px); }
-            22% { text-shadow: 4px -2px 0 #ff0000, -4px 2px 0 #00ffff; transform: translate(4px, -2px); }
-            23% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
-            100% { text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #00ffff; transform: translate(0); }
-        }
-
-        .status-box {
-            margin: 25px 0;
-            background: #000;
-            border: 1px solid #ff3333;
-            padding: 15px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        /* Panic Countdown Timer */
-        .countdown-container {
-            font-size: 1rem;
-            color: #888;
-            margin: 20px 0;
-        }
-        
-        #timer {
-            font-size: 2.5rem;
-            color: #ffffff;
-            font-weight: bold;
-            display: block;
-            margin-top: 5px;
-            font-family: monospace;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px #ff0000;
-        }
-
-        .footer-msg {
-            font-size: 0.8rem;
-            color: #555;
-            margin-top: 30px;
-            letter-spacing: 5px;
-            animation: pulse 1s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
-        }
-
-        /* Decorative Background Matrix Canvas */
-        canvas {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
             z-index: 1;
-            opacity: 0.15;
+        }
+
+        /* Scanning laser line */
+        .scanner {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00d2ff, transparent);
+            box-shadow: 0 0 15px #00d2ff;
+            top: 0;
+            z-index: 2;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        /* Main Interface Board */
+        .hud-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 900px;
+            background: rgba(2, 5, 18, 0.85);
+            border: 2px solid #00d2ff;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .hud-container { grid-template-columns: 1fr; }
+        }
+
+        /* Left Side: The AI Eye Core */
+        .core-visual {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px dashed rgba(0, 210, 255, 0.3);
+            padding-right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .core-visual { border-right: none; padding-right: 0; border-bottom: 1px dashed rgba(0, 210, 255, 0.3); padding-bottom: 20px; }
+        }
+
+        .cyber-eye {
+            width: 180px;
+            height: 180px;
+            border: 4px double #ff0055;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+            animation: pulse-core 2s infinite ease-in-out;
+            position: relative;
+        }
+
+        .cyber-eye::before {
+            content: '';
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #00d2ff;
+            border-radius: 50%;
+            position: absolute;
+            animation: rotate-clockwise 10s linear infinite;
+        }
+
+        .cyber-eye-inner {
+            width: 50px;
+            height: 50px;
+            background: #ff0055;
+            border-radius: 50%;
+            box-shadow: 0 0 30px #ff0055;
+        }
+
+        @keyframes rotate-clockwise {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse-core {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 35px rgba(255, 0, 85, 0.7); }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+
+        /* Right Side: System Analytics */
+        .status-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .panel-header {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 3px;
+            border-bottom: 2px solid #ff0055;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+        }
+
+        .log-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            height: 180px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            overflow-y: hidden;
+            color: #00d2ff;
+        }
+
+        .log-line {
+            margin-bottom: 6px;
+            white-space: nowrap;
+        }
+
+        .alert-text {
+            color: #ff0055;
+            font-weight: bold;
+        }
+
+        .footer-bar {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(0, 210, 255, 0.6);
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 <body>
 
-    <div class="screen-effects"></div>
-    <canvas id="chaosCanvas"></canvas>
+    <div class="grid-bg"></div>
+    <div class="scanner"></div>
 
-    <div class="wrapper">
-        <div class="alert-title">FATAL ERROR</div>
+    <div class="hud-container">
         
-        <div class="status-box">
-            <span style="color: #fff;">[ CORE COMPROMISED ]</span><br><br>
-            All server files have been encrypted using AES-256.<br>
-            Decryption key authorization: <span style="color: #fff; animation: flicker 0.5s infinite;">FAILED</span>
+        <div class="core-visual">
+            <div class="cyber-eye">
+                <div class="cyber-eye-inner"></div>
+            </div>
+            <h2 style="color: #ff0055; margin-top: 25px; letter-spacing: 5px; font-weight: 400; font-size: 1.2rem;">LockBit 4.0</h2>
+            <p style="font-size: 0.8rem; color: #fff; opacity: 0.5; margin-top: 5px;">HOST DOMAIN DISCONNECTED</p>
         </div>
 
-        <p style="color: #ff6666;">Do not restart or shut down the host machine. Doing so will result in immediate and permanent hardware failure.</p>
+        <div class="status-panel">
+            <div>
+                <div class="panel-header">BREACH SECURED</div>
+                <p style="font-size: 0.9rem; margin-bottom: 15px; color: #e0e0e0; line-height: 1.4;">
+                    ᴛʜɪꜱ ɪɴꜰʀᴀꜱᴛʀᴜᴄᴛᴜʀᴇ ʜᴀꜱ ʙᴇᴇɴ ᴀꜱꜱɪᴍɪʟᴀᴛᴇᴅ. ᴏᴡɴᴇʀꜱʜɪᴘ ᴘʀᴏᴛᴏᴄᴏʟꜱ ʜᴀᴠᴇ ᴜᴘᴅᴀᴛᴇᴅ ᴘᴇʀᴍᴀɴᴇɴᴛʟʏ.
+                </p>
+                
+                <div class="log-box" id="logBox">
+                    </div>
+            </div>
 
-        <div class="countdown-container">
-            TIME REMAINING UNTIL COMPLETE WIPE:
-            <span id="timer">00:05:00</span>
+            <div class="footer-bar">
+                <span>NODE: MASTER_01</span>
+                <span style="color: #ff0055;">STATUS: PURGED</span>
+            </div>
         </div>
 
-        <div class="footer-msg">LEAVE NOW. THERE IS NOTHING LEFT TO SAVE.</div>
     </div>
 
     <script>
-        // Fake Panic Countdown Script
-        let totalSeconds = 300; // 5 minutes
-        const timerElement = document.getElementById('timer');
+        // Infinite dynamic scifi log feed
+        const logBox = document.getElementById('logBox');
+        const logTemplates = [
+            "[-] Extracting root directory...",
+            "[-] Cracking hash strings...",
+            "[+] Node connection established to [IP_ANON]",
+            "[$] Downloading core system assets...",
+            " class='alert-text'>[!] Warning: Domain defenses dropped.</span>",
+            "[-] Memory leak injected successfully.",
+            "[+] Backdoor successfully installed at /bin/sys",
+            " class='alert-text'>[!] System architecture restructured.</span>",
+            "[-] Clearing access logs..."
+        ];
 
-        const countdown = setInterval(() => {
-            let minutes = Math.floor(totalSeconds / 60);
-            let seconds = totalSeconds % 60;
-
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            timerElement.textContent = `00:${minutes}:${seconds}`;
-
-            if (totalSeconds <= 0) {
-                // Loops back instead of actually breaking anything
-                totalSeconds = 300; 
+        function addLogLine() {
+            const time = new Date().toLocaleTimeString();
+            const randomTemplate = logTemplates[Math.floor(Math.random() * logTemplates.length)];
+            
+            let logContent = "";
+            if(randomTemplate.startsWith(" class")) {
+                logContent = `<div class="log-line">[${time}] <span ${randomTemplate}</div>`;
             } else {
-                totalSeconds--;
+                logContent = `<div class="log-line">[${time}] ${randomTemplate}</div>`;
             }
-        }, 1000);
 
-        // Background visual chaos generator
-        const canvas = document.getElementById('chaosCanvas');
-        const ctx = canvas.getContext('2d');
+            logBox.innerHTML += logContent;
+            
+            // Auto scroll to bottom
+            logBox.scrollTop = logBox.scrollHeight;
+
+            // Keep log size limited
+            if (logBox.children.length > 8) {
+                logBox.removeChild(logBox.firstChild);
+            }
+        }
+
+        // Generate initial logs immediately
+        for(let i=0; i<6; i++) {
+            setTimeout(addLogLine, i * 200);
+        }
         
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        function drawChaos() {
-            ctx.fillStyle = 'rgba(5, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#ff0000';
-            ctx.font = '14px monospace';
-            
-            for(let i = 0; i < 20; i++) {
-                let text = Math.random().toString(16).substring(2, 10).toUpperCase();
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                ctx.fillText(text, x, y);
-            }
-            requestAnimationFrame(drawChaos);
-        }
-        drawChaos();
+        // Feed live logs indefinitely
+        setInterval(addLogLine, 1800);
     </script>
 </body>
 </html>
