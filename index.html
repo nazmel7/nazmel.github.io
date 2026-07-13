@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM COMPROMISED</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-shadow: 0 0 5px #00ff00;
+        }
 
+        /* Glitch Effect for the Main Header */
+        .glitch {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #00ff00;
+            background: rgba(0, 20, 0, 0.8);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+
+        .alias {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .console {
+            text-align: left;
+            background: #050505;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px dashed #00ff00;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        .ln {
+            color: #888;
+            margin-right: 10px;
+        }
+
+        /* Matrix rain-like overlay effect */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <div class="glitch">SYSTEM HACKED</div>
+        
+        <div class="alias">BY: <span style="color: #ff003c; text-shadow: 0 0 5px #ff003c;">ManaP_404</span></div>
+        
+        <p>Your security is a myth. Your data belongs to us.</p>
+        
+        <div class="console">
+            <div><span class="ln">[>]</span> Initializing exploit... SUCCESS</div>
+            <div><span class="ln">[>]</span> Bypassing firewall... DONE</div>
+            <div><span class="ln">[>]</span> Injecting rootkit... ACTIVE</div>
+            <div><span class="ln">[>]</span> Downloading database... 100%</div>
+            <div style="color: #ff003c;"><span class="ln">[!]</span> SYSTEM OWNED.</div>
+        </div>
+        
+        <p style="font-size: 0.8rem; margin-top: 20px; color: #888;">We are watching you.</p>
+    </div>
+
+</body>
+</html>
