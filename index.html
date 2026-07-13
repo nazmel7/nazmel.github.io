@@ -27,7 +27,7 @@
             padding: 20px;
         }
 
-        /* Redesigned Background Canvas - Crimson Storm */
+        /* Crimson Storm Background Canvas */
         canvas {
             position: absolute;
             top: 0;
@@ -54,7 +54,7 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
         }
 
-        /* Custom Centered Logo Styling with Ambient Glow */
+        /* Centered Logo Styling with Ambient Glow */
         .logo-container {
             margin-bottom: 35px;
             display: flex;
@@ -64,12 +64,12 @@
 
         .hacker-logo {
             width: auto;
-            max-width: 320px; /* Perfectly scales your dynamic logo */
+            max-width: 320px;
             height: auto;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            filter: drop-shadow(0 0 25px rgba(255, 0, 50, 0.5)); /* Intense red aura */
+            filter: drop-shadow(0 0 25px rgba(255, 0, 50, 0.5));
         }
 
         .hacker-logo img {
@@ -87,7 +87,7 @@
         }
 
         .main-subtitle span {
-            color: #ff0000; /* Shifted to clean red accent */
+            color: #ff0000;
             text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
         }
 
@@ -97,7 +97,28 @@
             color: #ffffff;
             letter-spacing: 1px;
             text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* --- New Live Terminal Clock Style --- */
+        .live-clock {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.4rem;
+            color: #ff3333;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px #ff0000;
+        }
+        
+        /* Blinking terminal underscore cursor */
+        .live-clock::after {
+            content: '_';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
         }
 
         .dots-separator {
@@ -109,7 +130,7 @@
 
         .manifesto {
             font-family: 'Share Tech Mono', monospace;
-            color: #ff4d4d; /* High visibility red/tint text */
+            color: #ff4d4d;
             font-size: 1.25rem;
             line-height: 1.8;
             letter-spacing: 1px;
@@ -136,6 +157,8 @@
         <h2 class="main-subtitle">Your System <span>Hacked By</span></h2>
         <h1 class="agency-title">ZeroDay Syndicate</h1>
         
+        <div class="live-clock" id="clock">[ROOT@SYS_TIME]: ~ LOADING...</div>
+        
         <div class="dots-separator">☠️•••••••••• ••••••••••☠️</div>
 
         <div class="manifesto">
@@ -148,13 +171,33 @@
     </div>
 
     <script>
+        // --- Live Clock Script Execution ---
+        function updateClock() {
+            const now = new Date();
+            
+            // Format pieces to ensure exact 2-digit pad alignment
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('clock').textContent = `[ROOT@SYS_TIME]: ~ ${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+        // Initialize clock state and register 1s loop sequence
+        updateClock();
+        setInterval(updateClock, 1000);
+
+
+        // --- Matrix Digital Rain Canvas Setup ---
         const canvas = document.getElementById('backgroundCanvas');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Configurations for the crimson rain trails
         const lineCount = 90; 
         const lines = [];
 
@@ -172,7 +215,6 @@
             ctx.fillStyle = '#000000';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw the pure red digital rain
             for (let i = 0; i < lineCount; i++) {
                 let l = lines[i];
 
