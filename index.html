@@ -21,7 +21,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden; /* Prevents unwanted mobile horizontal scroll */
             position: relative;
             text-align: center;
             padding: 20px;
@@ -68,8 +68,9 @@
         .content-wrapper {
             position: relative;
             z-index: 15;
-            max-width: 95%;
+            max-width: 100%;
             width: 900px;
+            padding: 10px;
         }
 
         .top-header {
@@ -80,6 +81,7 @@
             margin-bottom: 25px;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.4);
             text-transform: uppercase;
+            word-wrap: break-word; /* Safe split for long headers on narrow screens */
         }
 
         .glitch-text {
@@ -91,7 +93,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 150px; /* Prevents layout shifting if image fails */
+            min-height: 150px;
         }
 
         .hacker-logo {
@@ -110,7 +112,6 @@
             object-fit: contain;
         }
 
-        /* Fallback styling if the Discord link dies completely */
         .logo-fallback {
             font-size: 5rem;
             color: #ff0000;
@@ -155,6 +156,7 @@
             padding: 8px 15px;
             border: 1px solid #ff0000;
             display: inline-block;
+            word-break: break-all; /* Prevents overflow if timestamp string is long */
         }
         
         .live-clock::after {
@@ -168,6 +170,7 @@
             font-size: 14px;
             margin-bottom: 30px;
             opacity: 0.8;
+            white-space: nowrap; /* Keeps skulls and lines aligned on one row */
         }
 
         .manifesto {
@@ -177,17 +180,80 @@
             line-height: 1.8;
             letter-spacing: 1px;
             margin-bottom: 30px;
+            padding: 0 10px;
         }
 
         .manifesto p {
             margin-bottom: 6px;
             display: block;
             position: relative;
+            word-wrap: break-word;
         }
 
         .manifesto p span.rapid-char {
             animation: textFlicker 0.15s forwards;
             opacity: 0;
+        }
+
+        /* --- NEW: MOBILE RESPONSIVE ADAPTATIONS --- */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+                justify-content: flex-start; /* Better scrolling if screen height is tiny */
+                overflow-y: auto; 
+            }
+
+            .content-wrapper {
+                margin-top: 20px;
+            }
+
+            .top-header {
+                font-size: 1.25rem; /* Scales down terminal notification text */
+                letter-spacing: 1px;
+                margin-bottom: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 20px;
+                min-height: 100px;
+            }
+
+            .hacker-logo {
+                max-width: 200px; /* Scales down logo container for phones */
+            }
+
+            .logo-fallback {
+                font-size: 3.5rem;
+            }
+
+            .main-subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+
+            .agency-title {
+                font-size: 2.1rem; /* Dynamically sizes title to fit screens under 768px */
+                letter-spacing: 1px;
+                margin-bottom: 20px;
+            }
+
+            .live-clock {
+                font-size: 1.1rem; /* Adjusts timestamp text layout */
+                letter-spacing: 1px;
+                padding: 6px 10px;
+                margin-bottom: 20px;
+            }
+
+            .dots-separator {
+                letter-spacing: 4px; /* Pulls elements tighter together */
+                margin-bottom: 20px;
+                font-size: 11px;
+            }
+
+            .manifesto {
+                font-size: 0.95rem; /* Cleaner tracking alignment for text logs */
+                line-height: 1.6;
+            }
         }
 
         /* Keyframes */
@@ -251,7 +317,6 @@
 
     <script>
         // --- Safe Logo Image Handler ---
-        // If the Discord link fails, this triggers instantly and prevents the rest of the scripts from freezing.
         const img = document.getElementById('hacker-img');
         if (img) {
             img.onerror = function() {
