@@ -1,260 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROTOCOL OVERRIDE: ACTIVE</title>
+    <title>Hacked By 0xManaP // No System Is Safe</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            background-color: #020208;
-            color: #00d2ff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #000000;
+            background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z5Z3ZsNjlkd21nd21nd21nd21nd21nd21nd21nd21nZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3o7TKSj06tqaecnKFE/giphy.gif'); /* Falling matrix or glitch gif */
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding-top: 50px;
         }
 
-        /* Sci-Fi Blueprint Grid Background */
-        .grid-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-position: center;
-            z-index: 1;
+        .main-title {
+            color: #ff0000;
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 0px 0px 10px #ff0000;
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        /* Scanning laser line */
-        .scanner {
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #00d2ff, transparent);
-            box-shadow: 0 0 15px #00d2ff;
-            top: 0;
-            z-index: 2;
-            animation: scan 4s linear infinite;
+        .hacker-img {
+            width: 250px;
+            margin: 20px auto;
+            border: 2px solid #ff0000;
+            box-shadow: 0px 0px 15px #ff0000;
         }
 
-        @keyframes scan {
-            0% { top: 0%; }
-            50% { top: 100%; }
-            100% { top: 0%; }
-        }
-
-        /* Main Interface Board */
-        .hud-container {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 900px;
-            background: rgba(2, 5, 18, 0.85);
-            border: 2px solid #00d2ff;
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
-            padding: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .hud-container { grid-template-columns: 1fr; }
-        }
-
-        /* Left Side: The AI Eye Core */
-        .core-visual {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-right: 1px dashed rgba(0, 210, 255, 0.3);
-            padding-right: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .core-visual { border-right: none; padding-right: 0; border-bottom: 1px dashed rgba(0, 210, 255, 0.3); padding-bottom: 20px; }
-        }
-
-        .cyber-eye {
-            width: 180px;
-            height: 180px;
-            border: 4px double #ff0055;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
-            animation: pulse-core 2s infinite ease-in-out;
-            position: relative;
-        }
-
-        .cyber-eye::before {
-            content: '';
-            width: 120px;
-            height: 120px;
-            border: 2px dashed #00d2ff;
-            border-radius: 50%;
-            position: absolute;
-            animation: rotate-clockwise 10s linear infinite;
-        }
-
-        .cyber-eye-inner {
-            width: 50px;
-            height: 50px;
-            background: #ff0055;
-            border-radius: 50%;
-            box-shadow: 0 0 30px #ff0055;
-        }
-
-        @keyframes rotate-clockwise {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse-core {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 35px rgba(255, 0, 85, 0.7); }
-            100% { transform: scale(1); opacity: 0.9; }
-        }
-
-        /* Right Side: System Analytics */
-        .status-panel {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .panel-header {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: 3px;
-            border-bottom: 2px solid #ff0055;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
-        }
-
-        .log-box {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            height: 180px;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            overflow-y: hidden;
-            color: #00d2ff;
-        }
-
-        .log-line {
-            margin-bottom: 6px;
-            white-space: nowrap;
-        }
-
-        .alert-text {
-            color: #ff0055;
+        .greeting {
+            font-size: 24px;
+            color: #00ff00;
+            margin: 20px 0;
             font-weight: bold;
         }
 
-        .footer-bar {
-            margin-top: 15px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(0, 210, 255, 0.6);
-            display: flex;
-            justify-content: space-between;
+        .reason {
+            color: #ffffff;
+            font-size: 16px;
+            background: rgba(0,0,0,0.8);
+            border: 1px dashed #ff0000;
+            display: inline-block;
+            padding: 15px;
+            max-width: 600px;
+        }
+
+        .greets-list {
+            color: #ffff00;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        /* The classic scrolling text */
+        marquee {
+            border-top: 2px solid #00ff00;
+            border-bottom: 2px solid #00ff00;
+            background: #111;
+            padding: 5px;
+            color: #00ff00;
+            font-weight: bold;
+            font-family: monospace;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
-    <div class="scanner"></div>
+    <div class="main-title">HACKED BY 0xManaP</div>
+    
+    <img src="https://i.imgur.com/KdfP7bH.png" class="hacker-img" alt="Secured">
 
-    <div class="hud-container">
-        
-        <div class="core-visual">
-            <div class="cyber-eye">
-                <div class="cyber-eye-inner"></div>
-            </div>
-            <h2 style="color: #ff0055; margin-top: 25px; letter-spacing: 5px; font-weight: 400; font-size: 1.2rem;">LockBit 4.0</h2>
-            <p style="font-size: 0.8rem; color: #fff; opacity: 0.5; margin-top: 5px;">HOST DOMAIN DISCONNECTED</p>
-        </div>
+    <div class="greeting">WE ARE ANONYMOUS. WE DO NOT FORGIVE. WE DO NOT FORGET.</div>
 
-        <div class="status-panel">
-            <div>
-                <div class="panel-header">BREACH SECURED</div>
-                <p style="font-size: 0.9rem; margin-bottom: 15px; color: #e0e0e0; line-height: 1.4;">
-                    ᴛʜɪꜱ ɪɴꜰʀᴀꜱᴛʀᴜᴄᴛᴜʀᴇ ʜᴀꜱ ʙᴇᴇɴ ᴀꜱꜱɪᴍɪʟᴀᴛᴇᴅ. ᴏᴡɴᴇʀꜱʜɪᴘ ᴘʀᴏᴛᴏᴄᴏʟꜱ ʜᴀᴠᴇ ᴜᴘᴅᴀᴛᴇᴅ ᴘᴇʀᴍᴀɴᴇɴᴛʟʏ.
-                </p>
-                
-                <div class="log-box" id="logBox">
-                    </div>
-            </div>
-
-            <div class="footer-bar">
-                <span>NODE: MASTER_01</span>
-                <span style="color: #ff0055;">STATUS: PURGED</span>
-            </div>
-        </div>
-
+    <div class="reason">
+        Your security is nothing to us. All your databases, emails, and root accesses have been completely wiped and downloaded. Want them back? Too bad. 
+        <br><br>
+        Contact: manap404@gmail.com
     </div>
 
-    <script>
-        // Infinite dynamic scifi log feed
-        const logBox = document.getElementById('logBox');
-        const logTemplates = [
-            "[-] Extracting root directory...",
-            "[-] Cracking hash strings...",
-            "[+] Node connection established to [IP_ANON]",
-            "[$] Downloading core system assets...",
-            " class='alert-text'>[!] Warning: Domain defenses dropped.</span>",
-            "[-] Memory leak injected successfully.",
-            "[+] Backdoor successfully installed at /bin/sys",
-            " class='alert-text'>[!] System architecture restructured.</span>",
-            "[-] Clearing access logs..."
-        ];
+    <div class="greets-list">
+        <strong>Greets to my brothers:</strong> <br>
+        Dark_Net // CyberLord // X-Sp1der // Root_Access // NullPointer // AnonSec
+    </div>
 
-        function addLogLine() {
-            const time = new Date().toLocaleTimeString();
-            const randomTemplate = logTemplates[Math.floor(Math.random() * logTemplates.length)];
-            
-            let logContent = "";
-            if(randomTemplate.startsWith(" class")) {
-                logContent = `<div class="log-line">[${time}] <span ${randomTemplate}</div>`;
-            } else {
-                logContent = `<div class="log-line">[${time}] ${randomTemplate}</div>`;
-            }
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&playlist=dQw4w9WgXcQ" frameborder="0" allow="autoplay"></iframe>
 
-            logBox.innerHTML += logContent;
-            
-            // Auto scroll to bottom
-            logBox.scrollTop = logBox.scrollHeight;
+    <marquee scrollamount="8">
+        [+] Website Defaced Successfully [+] Patch Your System [+] Admin Is Sleeping [+] We Are Everywhere [+]
+    </marquee>
 
-            // Keep log size limited
-            if (logBox.children.length > 8) {
-                logBox.removeChild(logBox.firstChild);
-            }
-        }
-
-        // Generate initial logs immediately
-        for(let i=0; i<6; i++) {
-            setTimeout(addLogLine, i * 200);
-        }
-        
-        // Feed live logs indefinitely
-        setInterval(addLogLine, 1800);
-    </script>
 </body>
 </html>
