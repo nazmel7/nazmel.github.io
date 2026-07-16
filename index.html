@@ -3,263 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Info365</title>
+
+<title>Info365 Demo</title>
 
 <style>
-/* ==========================================================================
-   GLOBAL STYLES & RESET
-   ========================================================================== */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"SF Pro Display","Helvetica Neue",sans-serif;
+    font-family:Arial, sans-serif;
 }
 
 body{
-    background:#ffffff;
-    color:#222;
-    overflow-x: hidden;
-}
-
-/* ==========================================================================
-   DASHBOARD STYLES (From File 2)
-   ========================================================================== */
-header{
-    height:70px;
-    border-bottom:1px solid #ddd;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 22px;
-}
-
-.logo{
-    font-size:20px;
-    font-weight:500;
-}
-
-.menu{
-    width:52px;
-    height:52px;
-    border:1px solid #ddd;
-    border-radius:6px;
+    height:100vh;
+    background:#fff;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:30px;
-    color:#666;
 }
 
 .container{
-    padding:30px 22px;
+    text-align:center;
 }
 
 h1{
-    font-size:60px;
-    line-height:1;
-    font-weight:300;
-    margin-bottom:18px;
-}
-
-.message{
-    font-size:28px;
-    color:#333;
-}
-
-.success{
-    margin-top:40px;
-    background:#eef8ef;
-    border-left:6px solid #28a745;
-    padding:20px;
-    border-radius:8px;
-}
-
-.success h2{
-    margin-bottom:10px;
-}
-
-.success p{
-    color:#555;
-    line-height:1.5;
-}
-
-footer{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    border-top:1px solid #ddd;
-    background:white;
-    padding:18px 22px;
-    color:#777;
-}
-
-footer a{
-    color:#007aff;
-    text-decoration:none;
-}
-
-/* ==========================================================================
-   LOGIN MODAL OVERLAY (From File 1)
-   ========================================================================== */
-.login-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #ffffff; /* CHANGED: Set background color to solid white before sign in */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-/* Class to hide the login screen after authentication */
-.login-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.dialog{
-    width:88%;
-    max-width:360px;
-    background:#1c1c1e;
-    border-radius:22px;
-    padding:24px;
-    color:white;
-    box-shadow:0 10px 40px rgba(0,0,0,.15); /* CHANGED: Softened shadow for white background */
-}
-
-.title{
-    font-size:20px;
-    margin-bottom:8px;
-    font-weight:600;
-}
-
-.subtitle{
-    color:#9d9d9f;
-    font-size:17px;
-    line-height:1.3;
+    font-size:40px;
     margin-bottom:20px;
 }
 
-.inputBox{
-    background:#2c2c2e;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.inputBox input{
-    width:100%;
-    background:none;
-    border:none;
-    outline:none;
-    color:white;
-    font-size:18px;
-    padding:14px 16px;
-}
-
-.inputBox input:first-child{
-    border-bottom:1px solid #3a3a3c;
-}
-
-.buttons{
-    display:flex;
-    justify-content:flex-end;
-    gap:30px;
-    margin-top:20px;
-}
-
 button{
+    padding:15px 35px;
     border:none;
-    background:none;
+    border-radius:10px;
+    background:#007aff;
+    color:white;
     font-size:20px;
     cursor:pointer;
 }
 
-.cancel{
-    color:#0a84ff;
+button:hover{
+    opacity:.8;
 }
 
-.signin{
-    color:#0a84ff;
-    font-weight:600;
-}
-
-/* ==========================================================================
-   RESPONSIVE DESIGN
-   ========================================================================== */
-@media(max-width:480px){
-    h1{
-        font-size:42px;
-    }
-    .message{
-        font-size:20px;
-    }
+#meme{
+    display:none;
+    width:100vw;
+    height:100vh;
+    object-fit:contain;
+    background:black;
 }
 </style>
+
 </head>
+
 <body>
 
-<div class="login-overlay" id="loginScreen">
-    <div class="dialog">
-        <div class="title">
-            Sign in to info365.uniten.edu.my
-        </div>
-        <div class="subtitle">
-            Your login information will be sent securely.
-        </div>
-        <form id="loginForm">
-            <div class="inputBox">
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-            </div>
-            <div class="buttons">
-                <button type="button" class="cancel" onclick="alert('Login cancelled')">
-                    Cancel
-                </button>
-                <button type="submit" class="signin">
-                    Sign In
-                </button>
-            </div>
-        </form>
-    </div>
+<div class="container" id="page">
+    <h1>Info365 System</h1>
+    <p style="margin-bottom:25px;">
+        Click continue to view your result
+    </p>
+
+    <button onclick="showMeme()">
+        Continue
+    </button>
 </div>
 
-<header>
-    <div class="logo">
-        Info365
-    </div>
-    <div class="menu">
-        &#9776;
-    </div>
-</header>
-
-<div class="container">
-    <h1><b>
-        Info365 System<br>
-        Message
-    </b></h1>
-    
-    <div class="message">
-        Your attendance has been recorded.
-    </div>
-</div>
-
-<footer>
-    &copy; 2020 - Info365 - <a href="#">Privacy</a>
-</footer>
+<img id="meme" src="images/gorilla.jpg" alt="Meme">
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(e){
-    e.preventDefault();
+function showMeme(){
 
-    // Instead of redirecting to a new page, hide the login portal overlay
-    document.getElementById("loginScreen").classList.add("hidden");
-});
+    document.getElementById("page").style.display="none";
+
+    document.getElementById("meme").style.display="block";
+
+}
 </script>
 
 </body>
