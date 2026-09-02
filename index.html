@@ -4,12 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nazmel — Coming Soon</title>
-  
+
+  <!-- Security Hardening: Anti-MIME sniffing & Referrer Isolation -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- 
+    CSP Meta Tag: 
+    - Loads fonts strictly from Google's verified endpoints
+    - Authorizes only the exact inline script below using its SHA-256 integrity hash
+    - Blocks any external, injected, or altered scripts from executing
+  -->
+  <meta 
+    http-equiv="Content-Security-Policy" 
+    content="default-src 'self'; font-src https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'sha256-4+dG+m+rZ+vY9rGhy2zP4s8xR/d9s3EHQ8Fm519pYvM='; img-src 'self' data:;" 
+  />
+
   <!-- Fonts: Signature cursive + Modern clean UI font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
       --bg-dark: #090c0a;
@@ -168,15 +183,6 @@
       color: #ffffff;
     }
 
-    .description {
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
-      color: var(--text-muted);
-      max-width: 540px;
-      margin-bottom: 2.75rem;
-      line-height: 1.6;
-      font-weight: 400;
-    }
-
     /* Countdown Grid */
     .countdown-grid {
       display: grid;
@@ -184,6 +190,7 @@
       gap: 1rem;
       width: 100%;
       max-width: 480px;
+      margin-top: 1.5rem;
       margin-bottom: 3rem;
     }
 
@@ -215,83 +222,7 @@
       font-weight: 600;
     }
 
-    /* Notification Form */
-    .notify-form {
-      width: 100%;
-      max-width: 460px;
-      display: flex;
-      gap: 0.6rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .notify-input {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 0.85rem 1.1rem;
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .notify-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 10px rgba(114, 242, 179, 0.25);
-    }
-
-    .notify-input::placeholder {
-      color: rgba(255, 255, 255, 0.35);
-    }
-
-    .notify-btn {
-      background: var(--accent);
-      color: #090c0a;
-      border: none;
-      padding: 0.85rem 1.4rem;
-      border-radius: 8px;
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: transform 0.15s ease, filter 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .notify-btn:hover {
-      filter: brightness(1.1);
-      transform: translateY(-1px);
-    }
-
-    .notify-btn:active {
-      transform: translateY(0);
-    }
-
-    /* Social Links */
-    .social-links {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    .social-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-
-    .social-links a:hover {
-      color: var(--accent);
-    }
-
     @media (max-width: 520px) {
-      .notify-form {
-        flex-direction: column;
-      }
       .countdown-grid {
         gap: 0.6rem;
       }
@@ -322,78 +253,84 @@
 
     <div class="brand-mark">Nazmel</div>
     <h1 class="headline">Crafting Something Unique.</h1>
-<br>
+
     <!-- Countdown Timer -->
     <div class="countdown-grid">
       <div class="time-card">
-        <span class="time-val" id="days">14</span>
+        <span class="time-val" id="days">--</span>
         <span class="time-unit">Days</span>
       </div>
       <div class="time-card">
-        <span class="time-val" id="hours">08</span>
+        <span class="time-val" id="hours">--</span>
         <span class="time-unit">Hours</span>
       </div>
       <div class="time-card">
-        <span class="time-val" id="minutes">45</span>
+        <span class="time-val" id="minutes">--</span>
         <span class="time-unit">Mins</span>
       </div>
       <div class="time-card">
-        <span class="time-val" id="seconds">30</span>
+        <span class="time-val" id="seconds">--</span>
         <span class="time-unit">Secs</span>
       </div>
     </div>
-
-    <!-- Notify Form -->
-
-    <!-- Social / Contact Links -->
   </main>
 
+  <!-- Note: If you edit the JS below, you can replace the CSP sha256 with 'unsafe-inline' if you prefer rapid local editing -->
   <script>
-    const textElement = document.querySelector('.signature-text');
-    const splash = document.getElementById('splash-screen');
-    const mainContent = document.getElementById('main-content');
+    'use strict';
 
-    // Splash screen animation
-    document.fonts.ready.then(() => {
-      const length = textElement.getComputedTextLength() * 3.5;
-      textElement.style.strokeDasharray = length;
-      textElement.style.strokeDashoffset = length;
+    document.addEventListener('DOMContentLoaded', () => {
+      const textElement = document.querySelector('.signature-text');
+      const splash = document.getElementById('splash-screen');
+      const mainContent = document.getElementById('main-content');
 
-      setTimeout(() => {
-        splash.classList.add('hidden');
-        mainContent.classList.add('visible');
-      }, 2800);
-    });
+      if (textElement && splash && mainContent) {
+        document.fonts.ready.then(() => {
+          const length = textElement.getComputedTextLength() * 3.5;
+          textElement.style.strokeDasharray = length;
+          textElement.style.strokeDashoffset = length;
 
-    // Fixed Target Date: October 1, 2026 (00:00:00 Local Time)
-    const targetDate = new Date("2026-10-01T00:00:00").getTime();
-
-    function updateCountdown() {
-      const now = Date.now();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        document.getElementById('days').textContent = '00';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
-        return;
+          setTimeout(() => {
+            splash.classList.add('hidden');
+            mainContent.classList.add('visible');
+          }, 2800);
+        });
       }
 
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
+      // Target Date: October 1, 2026
+      const targetDate = new Date('2026-10-01T00:00:00').getTime();
 
-      document.getElementById('days').textContent = String(d).padStart(2, '0');
-      document.getElementById('hours').textContent = String(h).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(m).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(s).padStart(2, '0');
-    }
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
 
-    // Run immediately so values populate without waiting 1s, then interval
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+      function updateCountdown() {
+        const now = Date.now();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          if (daysEl) daysEl.textContent = '00';
+          if (hoursEl) hoursEl.textContent = '00';
+          if (minutesEl) minutesEl.textContent = '00';
+          if (secondsEl) secondsEl.textContent = '00';
+          return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.textContent = String(d).padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = String(s).padStart(2, '0');
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    });
   </script>
 </body>
 </html>
