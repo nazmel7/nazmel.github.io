@@ -8,7 +8,7 @@
   <!-- Fonts: Signature cursive + Modern clean UI font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -310,57 +310,6 @@
         gap: 0.6rem;
       }
     }
-
-    /* =========================================
-       NEW ADDITIONS (Non-intrusive polish)
-       ========================================= */
-
-    /* Subtle interactive spotlight dot matrix */
-    .interactive-grid {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image: radial-gradient(rgba(114, 242, 179, 0.08) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: radial-gradient(circle 350px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
-      -webkit-mask-image: radial-gradient(circle 350px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
-    }
-
-    /* Domain tags */
-    .tags-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .tag-item {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 0.25rem 0.65rem;
-      border-radius: 6px;
-    }
-
-    /* Dev status ticker */
-    .status-snippet {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 1.8rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      opacity: 0.75;
-    }
-
-    .status-snippet span {
-      color: var(--accent);
-    }
   </style>
 </head>
 <body>
@@ -368,9 +317,6 @@
   <!-- Ambient Glow -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
-
-  <!-- Interactive Grid Layer -->
-  <div class="interactive-grid" id="interactive-grid"></div>
 
   <!-- Splash Screen -->
   <div id="splash-screen">
@@ -390,13 +336,7 @@
 
     <div class="brand-mark">Nazmel</div>
     <h1 class="headline">Crafting Something Unique.</h1>
-
-    <!-- Tangible Domain Tags -->
-    <div class="tags-container">
-      <span class="tag-item">Full-Stack Development</span>
-      <span class="tag-item">Web Systems</span>
-      <span class="tag-item">UI/UX Craft</span>
-    </div>
+    <p class="description">A new digital portfolio is underway.</p>
 
     <!-- Countdown Timer -->
     <div class="countdown-grid">
@@ -418,23 +358,18 @@
       </div>
     </div>
 
-    <!-- Pre-styled Email Notification Form -->
-    <form class="notify-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Subscribed!';">
-      <input type="email" class="notify-input" placeholder="Enter your email for launch updates" required />
+    <!-- Notify Box -->
+    <form class="notify-form">
+      <input type="email" class="notify-input" placeholder="Enter your email" required />
       <button type="submit" class="notify-btn">Notify Me</button>
     </form>
 
-    <!-- Dev status line -->
-    <div class="status-snippet">
-      <span>&gt;</span> current status: optimizing architecture &amp; interface polish
+    <!-- Social Links -->
+    <div class="social-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Contact</a>
     </div>
-
-    <!-- Pre-styled Social Links -->
-    <nav class="social-links" aria-label="Social and Contact Links">
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:contact@nazmel.com">Email</a>
-    </nav>
   </main>
 
   <script>
@@ -492,13 +427,6 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
-
-    // Dynamic mouse spotlight tracking
-    const grid = document.getElementById('interactive-grid');
-    window.addEventListener('pointermove', (e) => {
-      grid.style.setProperty('--mouse-x', `${e.clientX}px`);
-      grid.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
   </script>
 </body>
 </html>
