@@ -36,6 +36,17 @@
       position: relative;
     }
 
+    /* Instant display rules when splash screen has already been seen */
+    body.no-splash #splash-screen {
+      display: none !important;
+    }
+
+    body.no-splash .container {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
     /* Ambient background lights */
     .ambient-glow {
       position: fixed;
@@ -325,7 +336,7 @@
 
     <div class="brand-mark">Nazmel</div>
     <h1 class="headline">Crafting Something Unique.</h1>
-<br>
+    <br>
 
     <!-- Countdown Timer -->
     <div class="countdown-grid">
@@ -353,18 +364,27 @@
     const splash = document.getElementById('splash-screen');
     const mainContent = document.getElementById('main-content');
 
-    // Splash screen animation trigger after font loads
-    document.fonts.ready.then(() => {
-      const length = textElement.getComputedTextLength() * 3.5;
-      textElement.style.strokeDasharray = length;
-      textElement.style.strokeDashoffset = length;
-      textElement.classList.add('animate');
+    // Check if the user has already seen the splash screen in this session
+    const hasSeenSplash = sessionStorage.getItem('nazmel_splash_seen');
 
-      setTimeout(() => {
-        splash.classList.add('hidden');
-        mainContent.classList.add('visible');
-      }, 2800);
-    });
+    if (hasSeenSplash) {
+      // Skip the splash screen immediately on refresh
+      document.body.classList.add('no-splash');
+    } else {
+      // First visit: run signature animation
+      document.fonts.ready.then(() => {
+        const length = textElement.getComputedTextLength() * 3.5;
+        textElement.style.strokeDasharray = length;
+        textElement.style.strokeDashoffset = length;
+        textElement.classList.add('animate');
+
+        setTimeout(() => {
+          splash.classList.add('hidden');
+          mainContent.classList.add('visible');
+          sessionStorage.setItem('nazmel_splash_seen', 'true');
+        }, 2800);
+      });
+    }
 
     // Countdown target
     const targetDate = new Date("2026-10-01T00:00:00").getTime();
