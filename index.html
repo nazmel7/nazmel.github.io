@@ -365,7 +365,7 @@
     const splash = document.getElementById('splash-screen');
     const mainContent = document.getElementById('main-content');
 
-    // Run splash animation, then seamlessly reveal the coming soon page
+    // Splash screen animation
     document.fonts.ready.then(() => {
       const length = textElement.getComputedTextLength() * 3.5;
       textElement.style.strokeDasharray = length;
@@ -377,15 +377,20 @@
       }, 2800);
     });
 
-    // Countdown Logic (Target: 14 days from load)
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 14);
+    // Fixed Target Date: October 1, 2026 (00:00:00 Local Time)
+    const targetDate = new Date("2026-10-01T00:00:00").getTime();
 
     function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate.getTime() - now;
+      const now = Date.now();
+      const diff = targetDate - now;
 
-      if (diff <= 0) return;
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+      }
 
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -398,8 +403,9 @@
       document.getElementById('seconds').textContent = String(s).padStart(2, '0');
     }
 
-    setInterval(updateCountdown, 1000);
+    // Run immediately so values populate without waiting 1s, then interval
     updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
